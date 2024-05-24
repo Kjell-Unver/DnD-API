@@ -1,0 +1,421 @@
+openapi: 3.0.1
+
+info:
+  title: DnD-Characters
+  description: API to provide data for DnD Characters
+  version: "1.0.0"
+  contact:
+    name: Kjell
+    email: kjell.unverricht@otto.de
+
+servers:
+  - url: http://localhost:8080
+    description: "Local server"
+
+paths:
+  /characters:
+    get:
+      operationId: getCharacters
+      summary: List DnD Characters
+      description: |
+        Returns a list of all DnD Characters.
+
+      responses:
+        "200":
+          $ref: "#/components/responses/CharactersCollectionResponseV1"
+        "400":
+          description: Bad request.
+        '401':
+          description: Authorization information is missing or invalid.
+        '404':
+          description: A user with the specified ID was not found.
+        '5XX':
+          description: Unexpected error.
+
+
+
+# Should only return one character by UUID from the DB - Doesn't work yet
+
+  /character:
+    get:
+      operationId: getCharacter
+      summary: Returns a single DnD Character by UUID.
+      description: |
+        Returns a single DnD character by UUID.
+
+      responses:
+        "200":
+          $ref: "#/components/responses/CharacterResponseV1"
+        "400":
+          description: Bad request.
+        '401':
+          description: Authorization information is missing or invalid.
+        '404':
+          description: A user with the specified ID was not found.
+        '5XX':
+          description: Unexpected error.
+
+
+
+# As of rn UUID is required even tho' it cannot exist yet and should be created with this "POST" command instead
+    post:
+      operationId: createCharacters
+      summary: Create a new character entry.
+      description: |
+        Create a new character. The name field is the only required input.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CharacterCreateV1'
+
+
+      responses:
+        "200":
+          $ref: "#/components/responses/CreateResponseV1"
+        "400":
+          description: Bad request.
+        '401':
+          description: Authorization information is missing or invalid.
+        '404':
+          description: A user with the specified ID was not found.
+        '5XX':
+          description: Unexpected error.
+
+
+
+components:
+  responses:
+    CharactersCollectionResponseV1:
+      description: Returns list of Characters containing details of each Character.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CharacterCollectionV1"
+          examples:
+            default:
+              $ref: "#/components/examples/CharactersResponseV1"
+
+    CharacterResponseV1:
+      description: Returns specific details of one Characters.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CharacterV1"
+          examples:
+            default:
+              $ref: "#/components/examples/CharactersResponseV1"
+
+
+    CreateResponseV1:
+      description: Returns specific details of one Characters.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                description: The ID of the created character.
+          example:
+            id: "550e8400-e29b-41d4-a716-446655440000"
+
+
+
+
+  schemas:
+    CharacterCollectionV1:
+      description: List of Characters.
+      type: array
+      items:
+        $ref: "#/components/schemas/CharacterItemV1"
+
+    CharacterV1:
+      $ref: "#/components/schemas/CharacterItemV1"
+
+    CharacterItemV1:
+      description: Data of specific Character.
+
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Character.
+          format: uuid
+
+        skills:
+          type: object
+          properties:
+            strength:
+              type: integer
+              description: Strength of the Character.
+
+            dexterity:
+              type: integer
+              description: Dexterity of the Character.
+
+            constitution:
+              type: integer
+              description: Constitution of the Character.
+
+            intelligence:
+              type: integer
+              description: intelligence of the Character.
+
+            wisdom:
+              type: integer
+              description: Wisdom of the Character.
+
+            charisma:
+              type: integer
+              description: Charisma of the Character.
+
+
+
+        name:
+          type: string
+          description: Strength of the Character.
+
+        description:
+          type: string
+          description: A short description of the Character.
+
+        level:
+          type: integer
+          description: level of the Character.
+
+        hp:
+          type: object
+          properties:
+
+            curr_hp:
+              type: integer
+              description: Current hit points of the Character.
+
+            max_hp:
+              type: integer
+              description: Max hit points of the Character.
+
+
+
+        inventory:
+          type: object
+          properties:
+
+            weapon:
+              type: object
+              properties:
+
+                weapon_value:
+                  type: integer
+                  description: The Weapon of the Character.
+
+                weapon_desc:
+                  type: string
+                  description: A short description of the Characters armaments.
+
+
+
+            armour:
+              type: object
+              properties:
+
+                armour_class:
+                  type: integer
+                  description: The armour class of the Character as a number.
+
+                armour_desc:
+                  type: string
+                  description: A short description of the characters armour.
+
+            potion:
+              type: string
+              description: Potions of the Character.
+
+            items:
+              type: array
+              description: Items of the Character.
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: Name of the Item.
+
+                  description:
+                    type: string
+                    description: A short description of the item.
+
+                  value:
+                    type: integer
+                    description: Value of the Item.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    CharacterCreateV1:
+      description: Data of specific Character.
+
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the Character.
+          format: uuid
+
+        skills:
+          type: object
+          properties:
+            strength:
+              type: integer
+              description: Strength of the Character.
+
+            dexterity:
+              type: integer
+              description: Dexterity of the Character.
+
+            constitution:
+              type: integer
+              description: Constitution of the Character.
+
+            intelligence:
+              type: integer
+              description: intelligence of the Character.
+
+            wisdom:
+              type: integer
+              description: Wisdom of the Character.
+
+            charisma:
+              type: integer
+              description: Charisma of the Character.
+
+
+
+        name:
+          type: string
+          description: Strength of the Character.
+
+        description:
+          type: string
+          description: A short description of the Character.
+
+        level:
+          type: integer
+          description: level of the Character.
+
+        hp:
+          type: object
+          properties:
+
+            curr_hp:
+              type: integer
+              description: Current hit points of the Character.
+
+            max_hp:
+              type: integer
+              description: Max hit points of the Character.
+
+
+
+        inventory:
+          type: object
+          properties:
+
+            weapon:
+              type: object
+              properties:
+
+                weapon_value:
+                  type: integer
+                  description: The Weapon of the Character.
+
+                weapon_desc:
+                  type: string
+                  description: A short description of the Characters armaments.
+
+
+
+            armour:
+              type: object
+              properties:
+
+                armour_class:
+                  type: integer
+                  description: The armour class of the Character as a number.
+
+                armour_desc:
+                  type: string
+                  description: A short description of the characters armour.
+
+            potion:
+              type: string
+              description: Potions of the Character.
+
+            items:
+              type: array
+              description: Items of the Character.
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: Name of the Item.
+
+                  description:
+                    type: string
+                    description: A short description of the item.
+
+                  value:
+                    type: integer
+                    description: Value of the Item.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  examples:
+    CharactersResponseV1:
+      description: Example response for Characters request.
+      value:
+        - id: "550e8400-e29b-41d4-a716-446655440000"
+          name: "Gandalf"
+          skills:
+            strength: 8
+            dexterity: 10
+            constitution: 12
+            intelligence: 16
+            wisdom: 14
+            charisma: 13
+
+
+
+
+
+
