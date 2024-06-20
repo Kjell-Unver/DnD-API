@@ -25,6 +25,12 @@ import org.springframework.web.bind.annotation.PathVariable;
             return "index";
         }
 
+
+        @GetMapping("/")
+        String homesite() {
+            return "home";
+        }
+
         @GetMapping("/active")
         String activesite(@RequestParam(name="name", required=false, defaultValue="World") Model model) {
             // model.addAttribute("name", {someID});

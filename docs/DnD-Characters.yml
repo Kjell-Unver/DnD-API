@@ -22,7 +22,7 @@ paths:
 
       responses:
         "200":
-          $ref: "#/components/responses/CharactersCollectionResponseV1"
+          $ref: "#/components/responses/CharactersCollectionResponseV2"
         "400":
           description: Bad request.
         '401':
@@ -96,6 +96,16 @@ components:
             default:
               $ref: "#/components/examples/CharactersResponseV1"
 
+    CharactersCollectionResponseV2:
+      description: Returns list of Characters containing details of each Character.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CharacterCollectionV2"
+          examples:
+            default:
+              $ref: "#/components/examples/CharactersResponseV2"
+
     CharacterResponseV1:
       description: Returns specific details of one Characters.
       content:
@@ -129,6 +139,13 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/CharacterItemV1"
+
+    CharacterCollectionV2:
+      description: List of Characters.
+      type: array
+      items:
+        $ref: "#/components/schemas/CharactersItemV2"
+
 
     CharacterV1:
       $ref: "#/components/schemas/CharacterItemV1"
@@ -256,6 +273,26 @@ components:
 
 
 
+    CharactersItemV2:
+      description: Data of specific Character.
+      type: object
+      properties:
+
+        id:
+          type: string
+          description: UUID of the Character.
+
+        name:
+          type: string
+          description: Strength of the Character.
+
+        description:
+          type: string
+          description: A short description of the Character.
+
+        level:
+          type: integer
+          description: level of the Character.
 
 
 
@@ -413,6 +450,20 @@ components:
             intelligence: 16
             wisdom: 14
             charisma: 13
+
+
+    CharactersResponseV2:
+      description: Example response for Characters request.
+      value:
+          - id: "550e8400-e29b-41d4-a716-446655440000"
+            name: "Gandalf"
+            level: 31
+            description: "The Wizzard from LOTR"
+
+          - id: "550e8400-e29b-41d4-a716-44665554530000"
+            name: "Gollum"
+            level: 21
+            description: "The monster from LOTR"
 
 
 

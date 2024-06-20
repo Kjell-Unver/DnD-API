@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.management.modelmbean.RequiredModelMBean;
 import java.lang.reflect.Array;
+import java.util.Optional;
 
 @Getter
 @Builder(toBuilder = true)
@@ -30,4 +31,28 @@ public class DnDCharacterDto {
     private final HpDto hp;
 
     private final InventoryDto inventory;
+
+
+
+
+
+
+    public Optional<SkillsDto> getSkills() {
+        return Optional.ofNullable(skills);
+    }
+
+    public Optional<HpDto> getHp() {
+        return Optional.ofNullable(hp);
+    }
+
+
+    public Optional<InventoryDto> getInventory() {
+        return Optional.ofNullable(inventory);
+    }
+
+
+
+//    public InventoryDto getInventory() {
+//        return inventory;
+//    }
 }
