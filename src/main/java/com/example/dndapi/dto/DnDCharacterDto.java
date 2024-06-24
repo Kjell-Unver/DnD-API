@@ -9,8 +9,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import javax.management.modelmbean.RequiredModelMBean;
-import java.lang.reflect.Array;
 import java.util.Optional;
 
 @Getter
@@ -18,24 +16,20 @@ import java.util.Optional;
 @RequiredArgsConstructor(onConstructor_ = @JsonCreator)
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DnDCharacterDto {
 
-    private final SkillsDto skills;
-
+    private final String id;
     @JsonProperty(required = true)
     private final String name;
-
-    private final String description;
     private final Integer level;
+    private final String description;
 
     private final HpDto hp;
 
+    private final SkillsDto skills;
+
     private final InventoryDto inventory;
-
-
-
-
-
 
     public Optional<SkillsDto> getSkills() {
         return Optional.ofNullable(skills);
@@ -45,14 +39,8 @@ public class DnDCharacterDto {
         return Optional.ofNullable(hp);
     }
 
-
     public Optional<InventoryDto> getInventory() {
         return Optional.ofNullable(inventory);
     }
 
-
-
-//    public InventoryDto getInventory() {
-//        return inventory;
-//    }
 }

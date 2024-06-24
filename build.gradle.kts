@@ -25,6 +25,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+	implementation("org.mapstruct:mapstruct:1.5.5.Final")
+	implementation("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+
+	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
