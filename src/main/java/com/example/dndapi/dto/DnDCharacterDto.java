@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor(onConstructor_ = @JsonCreator)
 @EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_ABSENT)
 public class DnDCharacterDto {
 
     private final String id;

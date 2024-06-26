@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -20,7 +21,7 @@ public class CharacterProcess {
     private final DndCharacterDTOMapper dndCharacterDTOMapper = DndCharacterDTOMapper.INSTANCE;
 
     public CharacterEntity createCharacter(final DnDCharacterDto character) {
-        final CharacterEntity characterEntity = convert(character);
+        final CharacterEntity characterEntity = dndCharacterDTOMapper.characterDTOtoCharacterEntity(character);
         return characterRepository.save(characterEntity);
     }
 
@@ -46,8 +47,8 @@ public class CharacterProcess {
         return characterRepository.findByName(name) != null;
     }
 
-    public CharacterEntity updateCharacter(final String id, final DnDCharacterDto character) {
-        final CharacterEntity characterEntity = convert(character);
+    public boolean updateCharacter(final String id, final DnDCharacterDto character) {
+        final CharacterEntity characterEntity = dndCharacterDTOMapper.characterDTOtoCharacterEntity(character);
         final Optional<CharacterEntity> currentCharacter = characterRepository.findById(id);
 
         return currentCharacter.map(CharacterEntity::getId)
@@ -55,12 +56,6 @@ public class CharacterProcess {
                         .id(characterId)
                         .build())
                 .map(characterRepository::save)
-                .orElse(null);
+                .isPresent();
     }
-
-    private CharacterEntity convert(DnDCharacterDto character) {
-        return dndCharacterDTOMapper.characterDTOtoCharacterEntity(character);
-    }
-
-
 }

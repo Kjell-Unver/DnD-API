@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @Builder(toBuilder = true)
 @RequiredArgsConstructor
 @EqualsAndHashCode
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_ABSENT)
 public class CreateCharacterResponseDto {
     private final String id;
 }

@@ -2,6 +2,7 @@ package com.example.dndapi.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Builder(toBuilder = true)
 @RequiredArgsConstructor(onConstructor_ = @JsonCreator)
 @EqualsAndHashCode
+@JsonInclude(JsonInclude.Include.NON_ABSENT)
 public class ItemsDto {
 
     @JsonProperty(required = true)

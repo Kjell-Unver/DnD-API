@@ -2,6 +2,7 @@ package com.example.dndapi.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Builder(toBuilder = true)
 @RequiredArgsConstructor(onConstructor_ = @JsonCreator)
 @EqualsAndHashCode
+@JsonInclude(JsonInclude.Include.NON_ABSENT)
 public class HpDto {
     private final Integer curr_hp;
     private final Integer max_hp;

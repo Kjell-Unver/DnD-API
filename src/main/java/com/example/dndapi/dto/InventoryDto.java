@@ -2,6 +2,7 @@ package com.example.dndapi.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ import java.util.List;
 @Builder(toBuilder = true)
 @RequiredArgsConstructor(onConstructor_ = @JsonCreator)
 @EqualsAndHashCode
+@JsonInclude(JsonInclude.Include.NON_ABSENT)
 public class InventoryDto {
     private final WeaponDto weapon;
     private final ArmourDto armour;

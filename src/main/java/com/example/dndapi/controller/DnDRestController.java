@@ -66,9 +66,9 @@ public class DnDRestController {
     @PutMapping(value = "/character/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity updateCharacter(@RequestBody DnDCharacterDto character, @PathVariable final String id) {
 
-        CharacterEntity updated = characterProcess.updateCharacter(id, character);
+        boolean updated = characterProcess.updateCharacter(id, character);
 
-        return updated != null ? ResponseEntity.ok()
+        return updated ? ResponseEntity.ok()
                 .build() : ResponseEntity.badRequest()
                        .build();
     }
