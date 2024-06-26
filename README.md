@@ -15,7 +15,7 @@ The home site is the index.html site. This site will function as your menue.
 
 ## Api endpoints
 
-There are multiple Api endpoints. This will give you a quick overview over them. If you want more information, check out the [.yml.](yml in https://github.com/Kjell-Unver/DnD-API/blob/main/docs/DnD-Characters.yml).
+There are multiple Api endpoints. This will give you a quick overview over them. If you want more information, check out the [yml](yml in https://github.com/Kjell-Unver/DnD-API/blob/main/docs/DnD-Characters.yml).
 
 
 >GET endpoint
